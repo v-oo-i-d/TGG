@@ -12,6 +12,7 @@ public class GameBoard extends GameEngine implements KeyListener {
     final int HEIGHT = 800;
     final String tigerIcon = "🐯";
     final String goatIcon = "\uD83D\uDC10";
+    Image tigerImage, goatImage;
     Image boardImage;
     boolean goatTurn = true;
     int selectedBox = 1;
@@ -31,7 +32,9 @@ public class GameBoard extends GameEngine implements KeyListener {
     @Override
     public void init() {
         setWindowSize(WIDTH, HEIGHT);
-        boardImage = loadImage("src/boardImg.png");
+        boardImage = loadImage("GoatTigerGame/src/boardImg.png");
+        tigerImage = loadImage("GoatTigerGame/src/tigerImg.png");
+        goatImage = loadImage("GoatTigerGame/src/goatImg.png");
         p1 = new Point();
         boxes = new ArrayList<>();
         tigers = new ArrayList<>();
@@ -213,7 +216,7 @@ public class GameBoard extends GameEngine implements KeyListener {
     @Override
     public void paintComponent() {
         saveCurrentTransform();
-        changeBackgroundColor(Color.WHITE);
+        changeBackgroundColor(Color.darkGray);
         clearBackground(WIDTH, HEIGHT);
 
         changeColor(Color.WHITE);
@@ -228,7 +231,8 @@ public class GameBoard extends GameEngine implements KeyListener {
             drawRectangle(b.x, b.y, b.width, b.height);
 
             if (b.id == 1 || b.id == 5 || b.id == 21 || b.id == 25) {
-                drawText(b.x, b.y + 30, tigerIcon, "", 35);
+                drawImage(tigerImage, b.x, b.y, b.width, b.height);
+               // drawText(b.x, b.y + 30, tigerIcon, "", 35);
                 b.isEmpty = false;
             }
         }
@@ -245,30 +249,34 @@ public class GameBoard extends GameEngine implements KeyListener {
         if (!goatTurn) {
             //draw control
             changeColor(Color.ORANGE);
-            drawRectangle(250, 640, 90, 50);
-            drawText(255, 680, tigerIcon, "", 40);
+            drawRectangle(250, 670, 90, 50);
+            drawImage(tigerImage, 255, 670, 50, 50 );
+            //drawText(255, 680, tigerIcon, "", 40);
         } else {
             changeColor(Color.GRAY);
-            drawRectangle(250, 640, 90, 50);
-            drawText(255, 680, tigerIcon, "", 40);
+            drawRectangle(250, 670, 90, 50);
+            drawImage(tigerImage, 255, 670, 50, 50 );
         }
 
         if (goatTurn) {
             //draw control
             changeColor(Color.GRAY);
-            drawSolidRectangle(140, 640, 90, 50);
-            drawText(155, 680, goatIcon, "", 40);
+            drawSolidRectangle(140, 670, 90, 50);
+            drawImage(goatImage, 155, 670, 70, 50);
+            //drawText(155, 680, goatIcon, "", 40);
         } else {
             //draw control
             changeColor(Color.WHITE);
-            drawRectangle(140, 640, 90, 50);
-            drawText(155, 680, goatIcon, "", 40);
+            drawRectangle(140, 670, 90, 50);
+            drawImage(goatImage, 155, 670, 70, 50);
+            //drawText(155, 680, goatIcon, "", 40);
         }
 
         //draw goat
         if (goatTurn && !goats.isEmpty()) {
             for (Goat g : goats) {
-                drawText(g.x, g.y + 25, goatIcon, "", 40);
+                drawImage(goatImage, g.x, g.y, g.goatWidth+15, g.goatHeight+15);
+                //drawText(g.x, g.y + 25, goatIcon, "", 40);
 
             }
         }
