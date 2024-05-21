@@ -10,12 +10,11 @@ import java.util.ArrayList;
 public class GameBoard extends GameEngine implements KeyListener {
     final int WIDTH = 800;
     final int HEIGHT = 800;
-    final String tigerIcon = "🐯";
-    final String goatIcon = "\uD83D\uDC10";
+
     Image tigerImage, goatImage;
     Image boardImage;
     boolean goatTurn = true;
-    int selectedBox = 1;
+    int selectedBox = -1;
     Tiger tiger;
     Goat goat;
     Box triangle;
@@ -32,9 +31,9 @@ public class GameBoard extends GameEngine implements KeyListener {
     @Override
     public void init() {
         setWindowSize(WIDTH, HEIGHT);
-        boardImage = loadImage("GoatTigerGame/src/boardImg.png");
-        tigerImage = loadImage("GoatTigerGame/src/tigerImg.png");
-        goatImage = loadImage("GoatTigerGame/src/goatImg.png");
+        boardImage = loadImage("GoatTigerGame/src/images/boardImg.png");
+        tigerImage = loadImage("GoatTigerGame/src/images/tigerImg.png");
+        goatImage = loadImage("GoatTigerGame/src/images/goatImg.png");
         p1 = new Point();
         boxes = new ArrayList<>();
         tigers = new ArrayList<>();
@@ -66,9 +65,6 @@ public class GameBoard extends GameEngine implements KeyListener {
         System.out.println("Tigers: " + tigers.size());
         System.out.println("Goats: " + goats.size());
 
-//        for(Box b: boxes) {
-//            System.out.println("Box "+b.id + " ["+ b.top + "-"+b.bottom+"]");
-//        }
     }
 
     public void setRules() {
@@ -305,7 +301,6 @@ public class GameBoard extends GameEngine implements KeyListener {
         }
     }
     //mouse drag to move
-
 
 
     @Override
