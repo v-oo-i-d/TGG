@@ -13,11 +13,10 @@ public class GameBoard extends GameEngine implements KeyListener {
 
     Image tigerImage, goatImage;
     Image boardImage;
-    boolean goatTurn = true;
+    boolean goatTurn = false;
     int selectedBox = -1;
-    Tiger tiger;
-    Goat goat;
-    Box triangle;
+    int tiger1, tiger2, tiger3, tiger4;
+    boolean isTiger1, isTiger2, isTiger3, isTiger4;
     Point p1;
     Box start, end;
 
@@ -38,6 +37,16 @@ public class GameBoard extends GameEngine implements KeyListener {
         boxes = new ArrayList<>();
         tigers = new ArrayList<>();
         goats = new ArrayList<>();
+
+        isTiger1 = false;
+        isTiger2= false;
+        isTiger3 = false;
+        isTiger4 = false;
+
+        tiger1 = 1;
+        tiger2 = 5;
+        tiger3 = 21;
+        tiger4 = 25;
 
         int id = 1;
         for (int ix = 150; ix < 600; ix += 110) {
@@ -226,7 +235,7 @@ public class GameBoard extends GameEngine implements KeyListener {
             drawText(b.x, b.y, id, "", 15);
             drawRectangle(b.x, b.y, b.width, b.height);
 
-            if (b.id == 1 || b.id == 5 || b.id == 21 || b.id == 25) {
+            if (b.id == tiger1 || b.id == tiger2 || b.id == tiger3 || b.id == tiger4) {
                 drawImage(tigerImage, b.x, b.y, b.width, b.height);
                // drawText(b.x, b.y + 30, tigerIcon, "", 35);
                 b.isEmpty = false;
@@ -306,10 +315,36 @@ public class GameBoard extends GameEngine implements KeyListener {
     @Override
     public void mousePressed(MouseEvent event) {
         super.mouseDragged(event);
-        // System.out.println(event.getPoint());
+
         for (Box b : boxes) {
             if (((b.x + b.width) >= event.getX() && b.x <= event.getX()) && (b.y + b.height >= event.getY()) && (b.y <= event.getY())) {
-                start = b;
+               if(!goatTurn) {
+
+                   if(tiger1 == b.id) {
+                       tiger1 = b.id;
+                       isTiger1 = true;
+                       b.isEmpty = true;
+                   }
+
+                   if(tiger2 == b.id) {
+                       tiger2 = b.id;
+                       isTiger2 = true;
+                       b.isEmpty = true;
+                   }
+
+                   if(tiger3 == b.id) {
+                       tiger3 = b.id;
+                       isTiger3 = true;
+                       b.isEmpty = true;
+                   }
+
+                   if(tiger4 == b.id) {
+                       tiger4 = b.id;
+                       isTiger4 = true;
+                       b.isEmpty = true;
+                   }
+               }
+                System.out.println("Pressed: " + b.id);
                 break;
             }
 
@@ -321,7 +356,32 @@ public class GameBoard extends GameEngine implements KeyListener {
         super.mouseReleased(event);
         for (Box b : boxes) {
             if (((b.x + b.width) >= event.getX() && b.x <= event.getX()) && (b.y + b.height >= event.getY()) && (b.y <= event.getY())) {
-                end = b;
+                if(!goatTurn) {
+
+                    if(isTiger1 && b.isEmpty) {
+                        tiger1 = b.id;
+                        isTiger1 = false;
+                        b.isEmpty = false;
+                    }
+                    if(isTiger2 && b.isEmpty) {
+                        tiger2 = b.id;
+                        isTiger2 = false;
+                        b.isEmpty = false;
+                    }
+                    if(isTiger3 && b.isEmpty) {
+                        tiger3 = b.id;
+                        isTiger3 = false;
+                        b.isEmpty = false;
+                    }
+                    if(isTiger4 && b.isEmpty) {
+                        tiger4 = b.id;
+                        isTiger4 = false;
+                        b.isEmpty = false;
+                    }
+
+
+                }
+                System.out.println("Clicked: " + b.id);
                 break;
             }
         }
