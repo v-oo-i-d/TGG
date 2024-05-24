@@ -289,15 +289,12 @@ public class GameBoard extends GameEngine implements KeyListener, MouseListener 
             // If tile released on box, move it there
             if (b.containsMouse(e.getX(), e.getY(), BOX_SIZE)) {
                 if (draggedGoat != null) {
-
                     System.out.println("Goat moved: " + startBox.getIndex() + "->" + b.getIndex());
                     draggedGoat.x = b.x;
                     draggedGoat.y = b.y;
                     startBox.setOccupied(false);
                     b.setOccupied(true);
                 } else if (draggedTiger != null) {
-//                    if (!getValidMoveIndices(startBox.getIndex()).contains(b.getIndex())) continue;
-
                     System.out.println("Tiger moved: " + startBox.getIndex() + "->" + b.getIndex());
                     draggedTiger.x = b.x;
                     draggedTiger.y = b.y;
